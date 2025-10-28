@@ -5,7 +5,6 @@ import { baseConfig } from '@homu/formatter';
 const config = {
   ...baseConfig,
   jsxSingleQuote: true,
-  plugins: ['prettier-plugin-tailwindcss'],
 };
 
 export default config;

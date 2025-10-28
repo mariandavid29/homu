@@ -30,7 +30,6 @@ export const baseConfig = defineConfig([
       'no-console': 'warn',
       'prefer-const': 'warn',
       'require-await': 'error',
-      'sort-imports': 'warn',
     },
   },
   eslintConfigPrettier,

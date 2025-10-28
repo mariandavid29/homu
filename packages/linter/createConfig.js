@@ -6,7 +6,7 @@ import { defineConfig } from 'eslint/config';
 
 export const baseConfig = defineConfig([
   {
-    ignores: ['**/*.js'],
+    ignores: ['**/*.js', '**/*.cjs'],
   },
   js.configs.recommended,
   ...ts.configs.recommendedTypeChecked,

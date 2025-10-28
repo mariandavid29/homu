@@ -1,11 +1,26 @@
-import { Outlet, createRootRoute } from '@tanstack/react-router';
+import { Outlet, createRootRouteWithContext } from '@tanstack/react-router';
 import { TanStackRouterDevtoolsPanel } from '@tanstack/react-router-devtools';
 import { TanStackDevtools } from '@tanstack/react-devtools';
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
+import { MantineProvider } from '@mantine/core';
+import { Notifications } from '@mantine/notifications';
+import type { QueryClient } from '@tanstack/react-query';
 
-export const Route = createRootRoute({
-  component: () => (
+import '@/client/styles';
+
+export const Route = createRootRouteWithContext<{
+  queryClient: QueryClient;
+}>()({
+  component: RootComponent,
+});
+
+function RootComponent() {
+  return (
     <>
-      <Outlet />
+      <MantineProvider>
+        <Notifications />
+        <Outlet />
+      </MantineProvider>
       <TanStackDevtools
         config={{
           position: 'bottom-right',
@@ -17,6 +32,7 @@ export const Route = createRootRoute({
           },
         ]}
       />
+      <ReactQueryDevtools buttonPosition='top-right' />
     </>
-  ),
-});
+  );
+}

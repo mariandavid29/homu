@@ -7,7 +7,7 @@ import * as schema from '@/server/lib/db/schema';
 
 export const auth = (env: CloudflareBindings) => {
   const sql = neon(env.DATABASE_URL);
-  const db = drizzle(sql);
+  const db = drizzle(sql, { schema });
 
   return betterAuth({
     ...betterAuthOptions,

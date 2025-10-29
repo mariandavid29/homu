@@ -1,4 +1,4 @@
-import { BetterAuthOptions } from 'better-auth';
+import type { BetterAuthOptions } from 'better-auth';
 
 export const betterAuthOptions: BetterAuthOptions = {
   /**

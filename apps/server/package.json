@@ -1,6 +1,11 @@
 {
-  "name": "server",
+  "name": "@homu/server",
   "type": "module",
+  "private": "true",
+  "exports": {
+    "./interfaces": "./src/index.ts",
+    "./worker-configuration": "./worker-configuration.d.ts"
+  },
   "scripts": {
     "dev": "wrangler dev --port 8787",
     "deploy": "wrangler deploy --minify",
@@ -23,6 +28,6 @@
     "drizzle-kit": "^0.31.6",
     "eslint": "^9.38.0",
     "prettier": "^3.5.3",
-    "wrangler": "^4.45.1"
+    "wrangler": "^4.45.2"
   }
 }

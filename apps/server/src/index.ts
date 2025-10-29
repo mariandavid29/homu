@@ -1,10 +1,14 @@
-import { Hono } from 'hono';
-import { auth } from './lib/auth/handler';
+// Import { auth } from './lib/auth/handler';
+import { routesApp } from './routes';
+import { AppFactory } from './shared/factory';
 
-const app = new Hono<{ Bindings: CloudflareBindings }>();
+const app = AppFactory.createApp();
 
-app.on(['GET', 'POST'], '/api/auth/*', (c) => {
-  return auth(c.env).handler(c.req.raw);
-});
+// App.on(['GET', 'POST'], '/api/auth/*', (c) => {
+//   Return auth(c.env).handler(c.req.raw);
+// });
+
+const _appRoutes = app.route('/api', routesApp);
 
 export default app;
+export type AppInterfaces = typeof _appRoutes;

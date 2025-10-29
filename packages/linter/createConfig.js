@@ -20,6 +20,7 @@ export const baseConfig = defineConfig([
   },
   {
     rules: {
+      'no-unused-vars': 'off',
       'array-callback-return': 'warn',
       'no-await-in-loop': 'warn',
       'no-duplicate-imports': 'error',
@@ -30,6 +31,18 @@ export const baseConfig = defineConfig([
       'no-console': 'warn',
       'prefer-const': 'warn',
       'require-await': 'error',
+      '@typescript-eslint/no-unused-vars': [
+        'error',
+        {
+          args: 'all',
+          argsIgnorePattern: '^_',
+          caughtErrors: 'all',
+          caughtErrorsIgnorePattern: '^_',
+          destructuredArrayIgnorePattern: '^_',
+          varsIgnorePattern: '^_',
+          ignoreRestSiblings: true,
+        },
+      ],
     },
   },
   eslintConfigPrettier,

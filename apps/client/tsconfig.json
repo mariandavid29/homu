@@ -7,11 +7,9 @@
     "prettier.config.js",
     "vite.config.js"
   ],
-
   "compilerOptions": {
     "incremental": true,
     "jsx": "react-jsx",
-    "module": "ESNext",
     "lib": ["ESNext", "DOM", "DOM.Iterable"],
     "types": ["vite/client"],
     "allowImportingTsExtensions": true,

@@ -8,7 +8,7 @@ export const Route = createFileRoute('/')({
 function App() {
   return (
     <Paper shadow='xs' p='xl'>
-      <Text>Paper is the most basic ui component</Text>
+      <Text>Paper is the mostttt basic ui component</Text>
       <Text>
         Use it to create cards, dropdowns, modals and other components that
         require background with shadow

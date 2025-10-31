@@ -5,7 +5,7 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "dev": "pnpm run -r --parallel --stream dev",
+    "dev": "pnpm run -r --parallel --aggregate-output dev",
     "build": "pnpm run -r build",
     "lint": "pnpm run -r --parallel lint",
     "deploy": "pnpm build && pnpm run -r deploy"

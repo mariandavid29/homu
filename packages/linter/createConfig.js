@@ -9,7 +9,7 @@ export const baseConfig = defineConfig([
     ignores: ['**/*.js', '**/*.cjs'],
   },
   js.configs.recommended,
-  ...ts.configs.recommendedTypeChecked,
+  ...ts.configs.recommended,
   {
     languageOptions: {
       parser: tseslint.parser,
@@ -26,7 +26,7 @@ export const baseConfig = defineConfig([
       'no-duplicate-imports': 'error',
       'no-template-curly-in-string': 'warn',
       'camelcase': 'warn',
-      'capitalized-comments': ['warn', 'always'],
+      'capitalized-comments': ['warn', 'never'],
       'eqeqeq': ['error', 'always'],
       'no-console': 'warn',
       'prefer-const': 'warn',

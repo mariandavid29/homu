@@ -2,15 +2,11 @@
   "name": "@homu/server",
   "type": "module",
   "private": "true",
-  "exports": {
-    "./interfaces": "./src/index.ts",
-    "./worker-configuration": "./worker-configuration.d.ts"
-  },
   "scripts": {
     "dev": "wrangler dev --port 8787",
     "deploy": "wrangler deploy --minify",
-    "cf-typegen": "wrangler types --env-interface CloudflareBindings",
-    "auth-gen": "pnpm dlx @better-auth/cli@latest generate --config ./src/lib/auth/config.ts --output ./src/lib/db/schema.ts",
+    "gen:cf": "wrangler types --env-interface CloudflareBindings",
+    "gen:auth": "pnpm dlx @better-auth/cli@latest generate --config ./src/lib/auth/config.ts --output ./src/lib/db/schema.ts",
     "lint": "eslint",
     "format": "prettier"
   },
@@ -18,7 +14,7 @@
     "@neondatabase/serverless": "^1.0.2",
     "better-auth": "^1.3.33",
     "drizzle-orm": "^0.44.7",
-    "hono": "^4.10.3"
+    "hono": "4.10.4"
   },
   "devDependencies": {
     "@cloudflare/workers-types": "^4.20251014.0",

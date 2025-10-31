@@ -1,14 +1,18 @@
-// Import { auth } from './lib/auth/handler';
+import { logger } from 'hono/logger';
 import { routesApp } from './routes';
 import { AppFactory } from './shared/factory';
 
 const app = AppFactory.createApp();
 
-// App.on(['GET', 'POST'], '/api/auth/*', (c) => {
-//   Return auth(c.env).handler(c.req.raw);
-// });
+app.use(logger());
+app.use((c, next) => {
+  if (c.req.path.startsWith('/api')) {
+    return next();
+  }
+  const requestURL = new URL(c.req.raw.url);
+  return c.env.ASSETS.fetch(new URL('/index.html', requestURL.origin));
+});
 
-const _appRoutes = app.route('/api', routesApp);
+app.route('/api', routesApp);
 
 export default app;
-export type AppInterfaces = typeof _appRoutes;

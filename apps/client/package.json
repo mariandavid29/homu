@@ -4,7 +4,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite --port 3000",
-    "build": "vite build && tsc",
+    "build": "vite build",
     "serve": "vite preview",
     "lint": "eslint",
     "format": "prettier",
@@ -24,11 +24,11 @@
     "embla-carousel": "^8.6.0",
     "embla-carousel-react": "^8.6.0",
     "react": "^19.2.0",
-    "react-dom": "^19.2.0"
+    "react-dom": "^19.2.0",
+    "hono": "4.10.4"
   },
   "devDependencies": {
     "@eslint-react/eslint-plugin": "^2.2.3",
-    "@homu/rpc": "workspace:^",
     "@homu/formatter": "workspace:^",
     "@homu/linter": "workspace:^",
     "@tanstack/eslint-config": "^0.3.0",

@@ -14,10 +14,10 @@
     "types": ["vite/client"],
     "allowImportingTsExtensions": true,
     "noEmit": true,
-
     "baseUrl": ".",
     "paths": {
-      "@/client/*": ["./src/*"]
+      "@/client/*": ["./src/*"],
+      "@/server/*": ["../server/src/*"]
     }
   }
 }

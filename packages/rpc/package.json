@@ -1,0 +1,27 @@
+{
+  "name": "@homu/rpc",
+  "type": "module",
+  "version": "1.0.0",
+  "main": "./dist/src/index.js",
+  "scripts": {
+    "dev": "tsc --watch --preserveWatchOutput",
+    "build": "rm -rf dist && tsc",
+    "lint": "eslint",
+    "typecheck": "tsc --noEmit",
+    "format": "prettier"
+  },
+  "dependencies": {
+    "@homu/server": "workspace:^",
+    "hono": "4.10.4"
+  },
+  "devDependencies": {
+    "typescript": "^5.9.3",
+    "@cloudflare/workers-types": "^4.20251014.0",
+    "@homu/formatter": "workspace:^",
+    "@homu/linter": "workspace:^",
+    "@types/node": "^22.18.12",
+    "eslint": "^9.38.0",
+    "prettier": "^3.5.3"
+  },
+  "packageManager": "pnpm@10.19.0"
+}

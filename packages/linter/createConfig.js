@@ -23,7 +23,7 @@ export const baseConfig = defineConfig([
       'no-unused-vars': 'off',
       'array-callback-return': 'warn',
       'no-await-in-loop': 'warn',
-      'no-duplicate-imports': 'error',
+      'no-duplicate-imports': 'off',
       'no-template-curly-in-string': 'warn',
       'camelcase': 'warn',
       'capitalized-comments': ['warn', 'never'],

@@ -1,4 +1,17 @@
-import { hc } from 'hono/client';
-import type { AppInterfaces } from '@/server/routes';
+import createRpcClient from '@homu/rpc';
+import { httpClient } from '@/client/lib/httpClient';
 
-export const rpcClient = hc<AppInterfaces>('/api');
+export const rpcClient = createRpcClient('/api', {
+  init: {
+    credentials: 'include',
+  },
+  fetch: (input: RequestInfo | URL, requestInit?: RequestInit) => {
+    return httpClient(`${input}`, {
+      method: requestInit?.method,
+      headers: {
+        ...requestInit?.headers,
+      },
+      body: requestInit?.body,
+    });
+  },
+});

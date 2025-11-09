@@ -2,17 +2,18 @@ import type { BetterAuthOptions } from 'better-auth';
 
 export const betterAuthOptions: BetterAuthOptions = {
   /**
-   * The name of the application.
+   * the name of the application.
    */
   appName: 'homu',
   /**
-   * Base path for Better Auth.
+   * base path for Better Auth.
    * @default "/api/auth"
    */
   basePath: '/api/auth',
   emailAndPassword: {
     enabled: true,
   },
+  trustedOrigins: ['http://localhost:3000'],
 
   // .... More options
 };

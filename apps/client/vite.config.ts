@@ -1,7 +1,7 @@
 import { URL, fileURLToPath } from 'node:url';
 import { defineConfig } from 'vite';
 import viteReact from '@vitejs/plugin-react';
-
+import tsconfigPaths from 'vite-tsconfig-paths';
 import { tanstackRouter } from '@tanstack/router-plugin/vite';
 
 // https://vitejs.dev/config/
@@ -11,6 +11,7 @@ export default defineConfig({
     emptyOutDir: true,
   },
   plugins: [
+    tsconfigPaths(),
     tanstackRouter({
       target: 'react',
       autoCodeSplitting: true,
@@ -20,6 +21,12 @@ export default defineConfig({
   resolve: {
     alias: {
       '@/client': fileURLToPath(new URL('./src', import.meta.url)),
+      '@/server/rpc': fileURLToPath(
+        new URL('../server/src/src/routes.ts', import.meta.url),
+      ),
+      '@/server/contracts': fileURLToPath(
+        new URL('../server/src/lib/db/models/contracts.ts', import.meta.url),
+      ),
     },
   },
   server: {

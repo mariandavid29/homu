@@ -16,8 +16,7 @@
     "noEmit": true,
     "baseUrl": ".",
     "paths": {
-      "@/client/*": ["./src/*"],
-      "@/server/*": ["../server/src/*"]
+      "@/client/*": ["./src/*"]
     }
   }
 }

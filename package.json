@@ -7,8 +7,10 @@
   "scripts": {
     "dev": "pnpm run -r --parallel --aggregate-output dev",
     "build": "pnpm run -r build",
-    "lint": "pnpm run -r --parallel lint",
-    "deploy": "pnpm build && pnpm run -r deploy"
+    "deploy": "pnpm build && pnpm run -r deploy",
+    "validate": "pnpm lint && pnpm typecheck",
+    "typecheck": "pnpm run -r --parallel typecheck --noEmit",
+    "lint": "pnpm run -r --parallel lint"
   },
   "keywords": [],
   "author": "",

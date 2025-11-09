@@ -4,6 +4,7 @@
     "jsx": "react-jsx",
     "jsxImportSource": "hono/jsx",
     "types": ["./worker-configuration.d.ts", "node"],
+    "rootDir": ".",
     "paths": {
       "@/server/*": ["./src/*"]
     }

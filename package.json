@@ -6,7 +6,7 @@
   "type": "module",
   "scripts": {
     "dev": "pnpm run -r --parallel --aggregate-output dev",
-    "build": "pnpm run -r build",
+    "build": "pnpm run validate && pnpm run -r build",
     "deploy": "pnpm build && pnpm run -r deploy",
     "validate": "pnpm lint && pnpm typecheck",
     "typecheck": "pnpm run -r --parallel typecheck --noEmit",

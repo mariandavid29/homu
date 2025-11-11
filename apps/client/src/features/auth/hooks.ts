@@ -24,12 +24,12 @@ export function useSignup() {
   return useMutation({
     mutationKey: ['auth', 'signup'] as const,
     mutationFn: (signupData: SignupData) => authClient.signUp.email(signupData),
-    onSuccess: () => {
+    onSuccess: async () => {
       queryClient.invalidateQueries({
         queryKey: sessionQueryOptions.queryKey,
         exact: true,
       });
-      router.navigate({ to: '/', replace: true });
+      await router.invalidate();
     },
   });
 }

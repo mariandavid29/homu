@@ -1,0 +1,25 @@
+.headerGroup {
+  display: flex;
+  justify-content: space-between;
+  width: 95%;
+  margin-inline: auto;
+  height: 100%;
+}
+
+@media (min-width: $mantine-breakpoint-lg) {
+  .headerGroup {
+    width: 90%;
+  }
+}
+
+@media (min-width: $mantine-breakpoint-xl) {
+  .headerGroup {
+    width: 80%;
+  }
+}
+
+.navLink {
+  display: block;
+  font-weight: 600;
+  font-size: var(--mantine-font-size-lg);
+}

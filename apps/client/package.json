@@ -12,6 +12,7 @@
     "check": "prettier --write . && eslint --fix"
   },
   "dependencies": {
+    "@fontsource-variable/montserrat": "^5.2.8",
     "@homu/rpc": "workspace:^",
     "@homu/server": "workspace:^",
     "@mantine/carousel": "^8.3.5",
@@ -57,6 +58,7 @@
     "prettier": "^3.5.3",
     "typescript": "^5.7.2",
     "vite": "^7.1.7",
+    "vite-plugin-svgr": "^4.5.0",
     "web-vitals": "^5.1.0"
   }
 }

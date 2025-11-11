@@ -2,6 +2,7 @@ import { URL, fileURLToPath } from 'node:url';
 import { defineConfig } from 'vite';
 import viteReact from '@vitejs/plugin-react';
 import tsconfigPaths from 'vite-tsconfig-paths';
+import svgr from 'vite-plugin-svgr';
 import { tanstackRouter } from '@tanstack/router-plugin/vite';
 
 // https://vitejs.dev/config/
@@ -17,6 +18,7 @@ export default defineConfig({
       autoCodeSplitting: true,
     }),
     viteReact(),
+    svgr(),
   ],
   resolve: {
     alias: {

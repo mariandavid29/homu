@@ -5,9 +5,10 @@ import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { MantineProvider } from '@mantine/core';
 import { Notifications } from '@mantine/notifications';
 import type { QueryClient } from '@tanstack/react-query';
-import { sessionQueryOptions } from '@/client/shared/data/auth/queries';
+import { sessionQueryOptions } from '@/client/features/auth/queries';
 
 import '@/client/styles';
+import '@fontsource-variable/montserrat';
 
 type RootRouteContext = {
   queryClient: QueryClient;
@@ -21,7 +22,8 @@ export const Route = createRootRouteWithContext<RootRouteContext>()({
 function RootComponent() {
   return (
     <>
-      <MantineProvider>
+      <MantineProvider
+        theme={{ fontFamily: 'Montserrat Variable, sans-serif' }}>
         <Notifications />
         <Outlet />
       </MantineProvider>
@@ -44,10 +46,8 @@ function RootComponent() {
 async function loadSession(queryClient: QueryClient) {
   try {
     const authData = await queryClient.fetchQuery(sessionQueryOptions);
-    console.log(authData);
     return { authData };
-  } catch (error) {
-    console.log(error);
+  } catch (_error) {
     return { authData: null };
   }
 }

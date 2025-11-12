@@ -1,15 +1,15 @@
 import { AppShell, Button, Group, Menu } from '@mantine/core';
-import { Link } from '@tanstack/react-router';
-import { Logo } from '../Logo';
+import { Link, useLoaderData } from '@tanstack/react-router';
+import { ChevronDown, User as UserIcon } from 'lucide-react';
+import { Logo } from '../logo/Logo';
 import styles from './AppLayout.module.css';
 import type { PropsWithChildren } from 'react';
 import type { User } from '@/client/features/auth/types';
-import { useSignup } from '@/client/features/auth/hooks';
+import { useSignout } from '@/client/features/auth/hooks';
 
-export function AppLayout({
-  children,
-  user,
-}: PropsWithChildren<{ user: User | null }>) {
+export function AppLayout({ children }: PropsWithChildren) {
+  const { user } = useLoaderData({ from: '/_app' });
+
   return (
     <AppShell header={{ height: 80 }} padding='md'>
       <AppShell.Header>
@@ -27,8 +27,6 @@ export function AppLayout({
 }
 
 function GuestHeaderActions() {
-  const signupMutation = useSignup();
-
   return (
     <>
       <Group visibleFrom='sm'>
@@ -39,14 +37,7 @@ function GuestHeaderActions() {
         </Button>
         <Button
           variant='filled'
-          // renderRoot={(props) => <Link to='/signup' {...props} />}
-          onClick={() => {
-            signupMutation.mutate({
-              email: 'smogEmia123l@gmail.com',
-              name: 'testLayoutSt113uff',
-              password: 'topPas123TR31p',
-            });
-          }}>
+          renderRoot={(props) => <Link to='/signup' {...props} />}>
           Sign up
         </Button>
         <Button
@@ -66,17 +57,28 @@ function GuestHeaderActions() {
 }
 
 function UserHeaderActions({ user }: { user: User }) {
+  const signoutMutation = useSignout();
+
   return (
     <Menu shadow='md' width={200}>
       <Menu.Target>
-        <Button>{user.name}</Button>
+        <Button
+          color='black'
+          leftSection={<UserIcon />}
+          rightSection={<ChevronDown />}>
+          {user.name}
+        </Button>
       </Menu.Target>
 
       <Menu.Dropdown>
         <Menu.Item renderRoot={(props) => <Link to='/smth' {...props} />}>
           Dashboard
         </Menu.Item>
-        <Menu.Item renderRoot={(props) => <Link to='/smth' {...props} />}>
+        <Menu.Item
+          color='red'
+          onClick={() => {
+            signoutMutation.mutate();
+          }}>
           Log out
         </Menu.Item>
       </Menu.Dropdown>

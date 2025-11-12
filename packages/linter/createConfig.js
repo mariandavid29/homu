@@ -43,6 +43,7 @@ export const baseConfig = defineConfig([
           ignoreRestSiblings: true,
         },
       ],
+      '@typescript-eslint/no-floating-promises': 'error',
     },
   },
   eslintConfigPrettier,

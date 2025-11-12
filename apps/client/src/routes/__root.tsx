@@ -4,8 +4,8 @@ import { TanStackDevtools } from '@tanstack/react-devtools';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { MantineProvider } from '@mantine/core';
 import { Notifications } from '@mantine/notifications';
+import { loadSession } from '../features/auth/helpers';
 import type { QueryClient } from '@tanstack/react-query';
-import { sessionQueryOptions } from '@/client/features/auth/queries';
 
 import '@/client/styles';
 import '@fontsource-variable/montserrat';
@@ -41,13 +41,4 @@ function RootComponent() {
       <ReactQueryDevtools buttonPosition='top-right' />
     </>
   );
-}
-
-async function loadSession(queryClient: QueryClient) {
-  try {
-    const authData = await queryClient.fetchQuery(sessionQueryOptions);
-    return { authData };
-  } catch (_error) {
-    return { authData: null };
-  }
 }

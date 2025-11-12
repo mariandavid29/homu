@@ -1,5 +1,5 @@
-import { Outlet, createFileRoute, useLoaderData } from '@tanstack/react-router';
-import { AppLayout } from '@/client/shared/components/AppLayout/AppLayout';
+import { Outlet, createFileRoute } from '@tanstack/react-router';
+import { AppLayout } from '@/client/shared/components/appLayout/AppLayout';
 
 export const Route = createFileRoute('/_app')({
   loader: ({ context: { authData } }) => {
@@ -9,9 +9,8 @@ export const Route = createFileRoute('/_app')({
 });
 
 function RouteComponent() {
-  const { user } = useLoaderData({ from: '/_app' });
   return (
-    <AppLayout user={user}>
+    <AppLayout>
       <Outlet />
     </AppLayout>
   );

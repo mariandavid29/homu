@@ -2,8 +2,8 @@ import { neon, type NeonQueryFunction } from '@neondatabase/serverless';
 import { drizzle, NeonHttpDatabase } from 'drizzle-orm/neon-http';
 import { createFactory } from 'hono/factory';
 import * as schema from '@/server/lib/db/models';
-import type { auth } from '@/server/lib/auth/config';
 import { createAuthClient } from '@/server/lib/auth/client';
+import type { Session, User } from '../lib/auth/types';
 
 type AppEnv = {
   Bindings: CloudflareBindings;
@@ -13,8 +13,8 @@ type AppEnv = {
     };
     authClient: ReturnType<typeof createAuthClient>;
 
-    user: typeof auth.$Infer.Session.user | null;
-    session: typeof auth.$Infer.Session.session | null;
+    user: User | null;
+    session: Session | null;
   };
 };
 

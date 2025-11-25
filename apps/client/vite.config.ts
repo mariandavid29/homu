@@ -23,12 +23,6 @@ export default defineConfig({
   resolve: {
     alias: {
       '@/client': fileURLToPath(new URL('./src', import.meta.url)),
-      '@/server/rpc': fileURLToPath(
-        new URL('../server/src/src/routes.ts', import.meta.url),
-      ),
-      '@/server/contracts': fileURLToPath(
-        new URL('../server/src/lib/db/models/contracts.ts', import.meta.url),
-      ),
     },
   },
   server: {

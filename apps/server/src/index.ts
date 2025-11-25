@@ -2,7 +2,7 @@ import { logger } from 'hono/logger';
 import { cors } from 'hono/cors';
 import { routesApp } from '@/server/routes';
 import { AppFactory } from '@/server/shared/factory';
-import { injectSession } from './lib/auth/middleware';
+import { injectSession } from './api/auth/auth.middleware';
 
 const app = AppFactory.createApp();
 
@@ -26,9 +26,6 @@ app.use((c, next) => {
   return c.env.ASSETS.fetch(new URL('/index.html', requestURL.origin));
 });
 app.use(injectSession);
-app.on(['GET', 'POST'], '/api/auth/*', (c) =>
-  c.var.authClient.handler(c.req.raw),
-);
 app.route('/api', routesApp);
 
 export default app;

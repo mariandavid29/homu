@@ -15,6 +15,7 @@
     "noUncheckedSideEffectImports": true,
     "allowUnreachableCode": false,
     "noImplicitReturns": true,
-    "verbatimModuleSyntax": true
+    "verbatimModuleSyntax": true,
+    "useUnknownInCatchVariables": true
   }
 }

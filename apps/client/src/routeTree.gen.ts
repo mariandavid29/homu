@@ -9,19 +9,15 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as SignupRouteImport } from './routes/signup'
-import { Route as SigninRouteImport } from './routes/signin'
+import { Route as AuthRouteRouteImport } from './routes/_auth/route'
 import { Route as AppRouteRouteImport } from './routes/_app/route'
 import { Route as AppIndexRouteImport } from './routes/_app/index'
+import { Route as AuthSignupRouteImport } from './routes/_auth/signup'
+import { Route as AuthSigninRouteImport } from './routes/_auth/signin'
+import { Route as AuthEmailVerificationRouteImport } from './routes/_auth/email-verification'
 
-const SignupRoute = SignupRouteImport.update({
-  id: '/signup',
-  path: '/signup',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const SigninRoute = SigninRouteImport.update({
-  id: '/signin',
-  path: '/signin',
+const AuthRouteRoute = AuthRouteRouteImport.update({
+  id: '/_auth',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AppRouteRoute = AppRouteRouteImport.update({
@@ -33,52 +29,70 @@ const AppIndexRoute = AppIndexRouteImport.update({
   path: '/',
   getParentRoute: () => AppRouteRoute,
 } as any)
+const AuthSignupRoute = AuthSignupRouteImport.update({
+  id: '/signup',
+  path: '/signup',
+  getParentRoute: () => AuthRouteRoute,
+} as any)
+const AuthSigninRoute = AuthSigninRouteImport.update({
+  id: '/signin',
+  path: '/signin',
+  getParentRoute: () => AuthRouteRoute,
+} as any)
+const AuthEmailVerificationRoute = AuthEmailVerificationRouteImport.update({
+  id: '/email-verification',
+  path: '/email-verification',
+  getParentRoute: () => AuthRouteRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
-  '/signin': typeof SigninRoute
-  '/signup': typeof SignupRoute
+  '/email-verification': typeof AuthEmailVerificationRoute
+  '/signin': typeof AuthSigninRoute
+  '/signup': typeof AuthSignupRoute
   '/': typeof AppIndexRoute
 }
 export interface FileRoutesByTo {
-  '/signin': typeof SigninRoute
-  '/signup': typeof SignupRoute
+  '/email-verification': typeof AuthEmailVerificationRoute
+  '/signin': typeof AuthSigninRoute
+  '/signup': typeof AuthSignupRoute
   '/': typeof AppIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/_app': typeof AppRouteRouteWithChildren
-  '/signin': typeof SigninRoute
-  '/signup': typeof SignupRoute
+  '/_auth': typeof AuthRouteRouteWithChildren
+  '/_auth/email-verification': typeof AuthEmailVerificationRoute
+  '/_auth/signin': typeof AuthSigninRoute
+  '/_auth/signup': typeof AuthSignupRoute
   '/_app/': typeof AppIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/signin' | '/signup' | '/'
+  fullPaths: '/email-verification' | '/signin' | '/signup' | '/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/signin' | '/signup' | '/'
-  id: '__root__' | '/_app' | '/signin' | '/signup' | '/_app/'
+  to: '/email-verification' | '/signin' | '/signup' | '/'
+  id:
+    | '__root__'
+    | '/_app'
+    | '/_auth'
+    | '/_auth/email-verification'
+    | '/_auth/signin'
+    | '/_auth/signup'
+    | '/_app/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   AppRouteRoute: typeof AppRouteRouteWithChildren
-  SigninRoute: typeof SigninRoute
-  SignupRoute: typeof SignupRoute
+  AuthRouteRoute: typeof AuthRouteRouteWithChildren
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/signup': {
-      id: '/signup'
-      path: '/signup'
-      fullPath: '/signup'
-      preLoaderRoute: typeof SignupRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/signin': {
-      id: '/signin'
-      path: '/signin'
-      fullPath: '/signin'
-      preLoaderRoute: typeof SigninRouteImport
+    '/_auth': {
+      id: '/_auth'
+      path: ''
+      fullPath: ''
+      preLoaderRoute: typeof AuthRouteRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/_app': {
@@ -95,6 +109,27 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppIndexRouteImport
       parentRoute: typeof AppRouteRoute
     }
+    '/_auth/signup': {
+      id: '/_auth/signup'
+      path: '/signup'
+      fullPath: '/signup'
+      preLoaderRoute: typeof AuthSignupRouteImport
+      parentRoute: typeof AuthRouteRoute
+    }
+    '/_auth/signin': {
+      id: '/_auth/signin'
+      path: '/signin'
+      fullPath: '/signin'
+      preLoaderRoute: typeof AuthSigninRouteImport
+      parentRoute: typeof AuthRouteRoute
+    }
+    '/_auth/email-verification': {
+      id: '/_auth/email-verification'
+      path: '/email-verification'
+      fullPath: '/email-verification'
+      preLoaderRoute: typeof AuthEmailVerificationRouteImport
+      parentRoute: typeof AuthRouteRoute
+    }
   }
 }
 
@@ -110,10 +145,25 @@ const AppRouteRouteWithChildren = AppRouteRoute._addFileChildren(
   AppRouteRouteChildren,
 )
 
+interface AuthRouteRouteChildren {
+  AuthEmailVerificationRoute: typeof AuthEmailVerificationRoute
+  AuthSigninRoute: typeof AuthSigninRoute
+  AuthSignupRoute: typeof AuthSignupRoute
+}
+
+const AuthRouteRouteChildren: AuthRouteRouteChildren = {
+  AuthEmailVerificationRoute: AuthEmailVerificationRoute,
+  AuthSigninRoute: AuthSigninRoute,
+  AuthSignupRoute: AuthSignupRoute,
+}
+
+const AuthRouteRouteWithChildren = AuthRouteRoute._addFileChildren(
+  AuthRouteRouteChildren,
+)
+
 const rootRouteChildren: RootRouteChildren = {
   AppRouteRoute: AppRouteRouteWithChildren,
-  SigninRoute: SigninRoute,
-  SignupRoute: SignupRoute,
+  AuthRouteRoute: AuthRouteRouteWithChildren,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

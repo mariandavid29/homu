@@ -1,0 +1,6 @@
+.searchContainer {
+  box-shadow: var(--mantine-shadow-xl);
+  padding: var(--mantine-spacing-lg);
+  width: fit-content;
+  margin: 0 auto;
+}

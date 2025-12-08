@@ -4,6 +4,7 @@ import { TanStackDevtools } from '@tanstack/react-devtools';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { MantineProvider } from '@mantine/core';
 import { Notifications } from '@mantine/notifications';
+import { APIProvider } from '@vis.gl/react-google-maps';
 import { loadSession } from '../features/auth/helpers';
 import type { QueryClient } from '@tanstack/react-query';
 
@@ -22,11 +23,13 @@ export const Route = createRootRouteWithContext<RootRouteContext>()({
 function RootComponent() {
   return (
     <>
-      <MantineProvider
-        theme={{ fontFamily: 'Montserrat Variable, sans-serif' }}>
-        <Notifications />
-        <Outlet />
-      </MantineProvider>
+      <APIProvider apiKey={import.meta.env.VITE_MAPS_API_KEY}>
+        <MantineProvider
+          theme={{ fontFamily: 'Montserrat Variable, sans-serif' }}>
+          <Notifications />
+          <Outlet />
+        </MantineProvider>
+      </APIProvider>
       <TanStackDevtools
         config={{
           position: 'bottom-right',

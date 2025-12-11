@@ -2,7 +2,7 @@ import { useQuery } from '@tanstack/react-query';
 import { useMapsLibrary } from '@vis.gl/react-google-maps';
 import { useDebouncedValue } from '@mantine/hooks';
 import { useState } from 'react';
-import { placesAutocompleteQueryOptions } from './queries';
+import { createPlacesAutocompleteQueryOptions } from './queries';
 
 interface UsePlacesAutocompleteOptions {
   debounceMs?: number;
@@ -22,7 +22,8 @@ export const usePlacesAutocomplete = ({
     isLoading,
     error,
   } = useQuery({
-    ...placesAutocompleteQueryOptions(places, debouncedValue),
+    // hardcoded 'ro' value here
+    ...createPlacesAutocompleteQueryOptions(places, debouncedValue, 'ro'),
     enabled: !!places && !!debouncedValue && debouncedValue.length >= minLength,
   });
 

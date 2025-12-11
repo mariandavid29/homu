@@ -15,6 +15,8 @@ import { Route as AppIndexRouteImport } from './routes/_app/index'
 import { Route as AuthSignupRouteImport } from './routes/_auth/signup'
 import { Route as AuthSigninRouteImport } from './routes/_auth/signin'
 import { Route as AuthEmailVerificationRouteImport } from './routes/_auth/email-verification'
+import { Route as AppListingsRouteRouteImport } from './routes/_app/listings/route'
+import { Route as AppListingsIndexRouteImport } from './routes/_app/listings/index'
 
 const AuthRouteRoute = AuthRouteRouteImport.update({
   id: '/_auth',
@@ -44,41 +46,64 @@ const AuthEmailVerificationRoute = AuthEmailVerificationRouteImport.update({
   path: '/email-verification',
   getParentRoute: () => AuthRouteRoute,
 } as any)
+const AppListingsRouteRoute = AppListingsRouteRouteImport.update({
+  id: '/listings',
+  path: '/listings',
+  getParentRoute: () => AppRouteRoute,
+} as any)
+const AppListingsIndexRoute = AppListingsIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => AppListingsRouteRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
+  '/listings': typeof AppListingsRouteRouteWithChildren
   '/email-verification': typeof AuthEmailVerificationRoute
   '/signin': typeof AuthSigninRoute
   '/signup': typeof AuthSignupRoute
   '/': typeof AppIndexRoute
+  '/listings/': typeof AppListingsIndexRoute
 }
 export interface FileRoutesByTo {
   '/email-verification': typeof AuthEmailVerificationRoute
   '/signin': typeof AuthSigninRoute
   '/signup': typeof AuthSignupRoute
   '/': typeof AppIndexRoute
+  '/listings': typeof AppListingsIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/_app': typeof AppRouteRouteWithChildren
   '/_auth': typeof AuthRouteRouteWithChildren
+  '/_app/listings': typeof AppListingsRouteRouteWithChildren
   '/_auth/email-verification': typeof AuthEmailVerificationRoute
   '/_auth/signin': typeof AuthSigninRoute
   '/_auth/signup': typeof AuthSignupRoute
   '/_app/': typeof AppIndexRoute
+  '/_app/listings/': typeof AppListingsIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/email-verification' | '/signin' | '/signup' | '/'
+  fullPaths:
+    | '/listings'
+    | '/email-verification'
+    | '/signin'
+    | '/signup'
+    | '/'
+    | '/listings/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/email-verification' | '/signin' | '/signup' | '/'
+  to: '/email-verification' | '/signin' | '/signup' | '/' | '/listings'
   id:
     | '__root__'
     | '/_app'
     | '/_auth'
+    | '/_app/listings'
     | '/_auth/email-verification'
     | '/_auth/signin'
     | '/_auth/signup'
     | '/_app/'
+    | '/_app/listings/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -130,14 +155,41 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthEmailVerificationRouteImport
       parentRoute: typeof AuthRouteRoute
     }
+    '/_app/listings': {
+      id: '/_app/listings'
+      path: '/listings'
+      fullPath: '/listings'
+      preLoaderRoute: typeof AppListingsRouteRouteImport
+      parentRoute: typeof AppRouteRoute
+    }
+    '/_app/listings/': {
+      id: '/_app/listings/'
+      path: '/'
+      fullPath: '/listings/'
+      preLoaderRoute: typeof AppListingsIndexRouteImport
+      parentRoute: typeof AppListingsRouteRoute
+    }
   }
 }
 
+interface AppListingsRouteRouteChildren {
+  AppListingsIndexRoute: typeof AppListingsIndexRoute
+}
+
+const AppListingsRouteRouteChildren: AppListingsRouteRouteChildren = {
+  AppListingsIndexRoute: AppListingsIndexRoute,
+}
+
+const AppListingsRouteRouteWithChildren =
+  AppListingsRouteRoute._addFileChildren(AppListingsRouteRouteChildren)
+
 interface AppRouteRouteChildren {
+  AppListingsRouteRoute: typeof AppListingsRouteRouteWithChildren
   AppIndexRoute: typeof AppIndexRoute
 }
 
 const AppRouteRouteChildren: AppRouteRouteChildren = {
+  AppListingsRouteRoute: AppListingsRouteRouteWithChildren,
   AppIndexRoute: AppIndexRoute,
 }
 

@@ -1,29 +1,25 @@
-import { Group, MultiSelect } from '@mantine/core';
-import { Bed } from 'lucide-react';
+import { MultiSelect, Text } from '@mantine/core';
 import type { MultiSelectProps } from '@mantine/core';
 
 type BedroomsSelectProps = Omit<MultiSelectProps, 'data'>;
 
 export function BedroomsSelect(props: BedroomsSelectProps) {
-  const renderSelectOption: MultiSelectProps['renderOption'] = ({ option }) => (
-    <Group gap='xs'>
-      <Bed size={16} />
-      <span>{option.label}</span>
-    </Group>
-  );
+  const bedroomOptions = [
+    { value: '1', label: '1', fullLabel: '1 bedroom' },
+    { value: '2', label: '2', fullLabel: '2 bedrooms' },
+    { value: '3', label: '3', fullLabel: '3 bedrooms' },
+    { value: '4+', label: '4+', fullLabel: '4 bedrooms' },
+  ];
 
   return (
     <MultiSelect
-      placeholder='Number of Bedrooms'
+      placeholder='Bedrooms'
       size='md'
-      data={[
-        { value: '1', label: '1 bedroom' },
-        { value: '2', label: '2 bedrooms' },
-        { value: '3', label: '3 bedrooms' },
-        { value: '4', label: '4 bedrooms' },
-        { value: '5+', label: '5+ bedrooms' },
-      ]}
-      renderOption={renderSelectOption}
+      data={bedroomOptions}
+      renderOption={({ option }) => {
+        const item = option as (typeof bedroomOptions)[number];
+        return <Text>{item.fullLabel}</Text>;
+      }}
       {...props}
     />
   );

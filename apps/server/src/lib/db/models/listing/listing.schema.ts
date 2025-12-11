@@ -51,7 +51,7 @@ export const listingImages = pgTable('listing_images', {
 });
 
 export const userListingFavorites = pgTable('user_listing_favorites', {
-  userId: uuid('user_id')
+  userId: text('user_id')
     .notNull()
     .references(() => user.id, { onDelete: 'cascade' }),
   listingId: uuid('listing_id')

@@ -1,17 +1,21 @@
 import { ActionIcon, Box, Group } from '@mantine/core';
-import { Search as SearchIcon } from 'lucide-react';
+import { OctagonX, Search as SearchIcon } from 'lucide-react';
 import { useForm } from '@mantine/form';
 import { zod4Resolver } from 'mantine-form-zod-resolver';
 import { useNavigate } from '@tanstack/react-router';
+import { useMapsLibrary } from '@vis.gl/react-google-maps';
+import { notifications } from '@mantine/notifications';
 import { ListingTypeSelect } from '../listingTypeSelect/ListingTypeSelect';
 import { BedroomsSelect } from '../bedroomsSelect/BedroomsSelect';
 import { PropertyTypeSelect } from '../propertyTypeSelect/PropertyTypeSelect';
 import { LocationSelect } from '../locationSelect/LocationSelect';
 import { quickSearchSchema } from '../../helpers';
 import styles from './QuickSearch.module.css';
+import { geocodePlaceId } from '@/client/features/listings/helpers';
 
 export function QuickSearch() {
   const navigate = useNavigate();
+  const geocodingLib = useMapsLibrary('geocoding');
   const form = useForm({
     mode: 'controlled',
     initialValues: {
@@ -23,16 +27,39 @@ export function QuickSearch() {
     validate: zod4Resolver(quickSearchSchema),
   });
 
-  const onSubmit = (values: typeof form.values) => {
-    void navigate({
-      to: '/listings',
-      search: {
-        listingType: values.listingType,
-        location: values.location,
-        propertyType: values.propertyType,
-        bedRooms: values.bedRooms,
-      },
-    });
+  const onSubmit = async (values: typeof form.values) => {
+    try {
+      if (!geocodingLib) {
+        throw new Error('Missing geocoding deps');
+      }
+
+      const coords = await geocodePlaceId({
+        placeId: values.location,
+        geocodingLib,
+      });
+
+      void navigate({
+        to: '/listings',
+        search: {
+          listingType: values.listingType,
+          location: {
+            latitude: coords.latitude,
+            longitude: coords.longitude,
+          },
+          propertyType: values.propertyType,
+          bedRooms: values.bedRooms,
+        },
+      });
+    } catch (error) {
+      console.error('Geocoding failed:', error);
+      notifications.show({
+        title: 'Quick search has failed',
+        message: 'Please try again later',
+        position: 'top-center',
+        color: 'red',
+        icon: <OctagonX />,
+      });
+    }
   };
 
   return (

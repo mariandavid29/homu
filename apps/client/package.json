@@ -46,6 +46,7 @@
     "@tanstack/react-query-devtools": "^5.90.2",
     "@tanstack/react-router-devtools": "^1.132.0",
     "@tanstack/router-plugin": "^1.132.0",
+    "@types/google.maps": "^3.58.1",
     "@types/node": "^22.10.2",
     "@types/react": "^19.2.0",
     "@types/react-dom": "^19.2.0",

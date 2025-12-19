@@ -7,5 +7,5 @@ export const quickSearchSchema = z.object({
   bedRooms: z
     .string()
     .array()
-    .min(1, { error: 'Please select at least one bedroom' }),
+    .min(1, { error: 'Please select at least one option' }),
 });
